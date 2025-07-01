@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación de Cumpleaños</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffeef8 0%, #f8d7da 50%, #e7c6ff 100%);
+        }
+        
+        .invitation-card {
+            width: 320px;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 30%, #a8edea 70%, #fed6e3 100%);
+            border-radius: 35px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15), 0 10px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .invitation-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.15), transparent);
+            animation: shimmer 4s infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .title {
+            font-size: 2.8em;
+            font-weight: 900;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .subtitle {
+            font-size: 1.1em;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 25px;
+            line-height: 1.4;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .photo-container {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            margin: 25px auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            border: 4px solid rgba(255,255,255,0.3);
+            z-index: 2;
+        }
+        
+        .photo-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        
+        .sparkle {
+            position: absolute;
+            color: #FFD700;
+            font-size: 18px;
+            animation: sparkle 2.5s infinite;
+            text-shadow: 0 0 10px rgba(255,215,0,0.8);
+        }
+        
+        .sparkle:nth-child(2) { top: 5px; right: 15px; animation-delay: 0.5s; }
+        .sparkle:nth-child(3) { bottom: 10px; left: 5px; animation-delay: 1s; }
+        .sparkle:nth-child(4) { top: 50%; left: -15px; animation-delay: 1.5s; }
+        .sparkle:nth-child(5) { top: 20%; right: -10px; animation-delay: 2s; }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.3) rotate(180deg); }
+        }
+        
+        .details {
+            margin-top: 25px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .time {
+            font-size: 1.6em;
+            color: white;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 15px;
+        }
+        
+        .message {
+            font-size: 1.1em;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .address-section {
+            background: rgba(255,255,255,0.15);
+            padding: 18px;
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        
+        .address-title {
+            font-size: 1.1em;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            margin-bottom: 8px;
+        }
+        
+        .address {
+            font-size: 0.95em;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            line-height: 1.5;
+        }
+        
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 14px;
+            animation: float 6s infinite ease-in-out;
+            opacity: 0.7;
+        }
+        
+        .heart:nth-child(1) { top: 15%; left: 8%; animation-delay: 0s; color: #ff6b9d; }
+        .heart:nth-child(2) { top: 35%; right: 12%; animation-delay: 1.5s; color: #feca57; }
+        .heart:nth-child(3) { bottom: 25%; left: 15%; animation-delay: 3s; color: #ff9ff3; }
+        .heart:nth-child(4) { bottom: 45%; right: 8%; animation-delay: 4.5s; color: #54a0ff; }
+        .heart:nth-child(5) { top: 60%; left: 5%; animation-delay: 2s; color: #5f27cd; }
+        .heart:nth-child(6) { top: 25%; right: 5%; animation-delay: 3.5s; color: #00d2d3; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.7; }
+            33% { transform: translateY(-8px) rotate(120deg) scale(1.1); opacity: 1; }
+            66% { transform: translateY(-4px) rotate(240deg) scale(0.9); opacity: 0.8; }
+        }
+        
+        .decoration-star {
+            position: absolute;
+            color: rgba(255,255,255,0.6);
+            font-size: 12px;
+            animation: twinkle 3s infinite;
+        }
+        
+        .decoration-star:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+        .decoration-star:nth-child(2) { top: 20%; right: 25%; animation-delay: 1s; }
+        .decoration-star:nth-child(3) { bottom: 15%; left: 25%; animation-delay: 2s; }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body>
+    <div class="invitation-card">
+        <div class="floating-hearts">
+            <div class="heart">💕</div>
+            <div class="heart">💖</div>
+            <div class="heart">💗</div>
+            <div class="heart">💝</div>
+            <div class="heart">💜</div>
+            <div class="heart">💙</div>
+        </div>
+        
+        <div class="decoration-star">✨</div>
+        <div class="decoration-star">⭐</div>
+        <div class="decoration-star">✨</div>
+        
+        <div class="title">TE INVITO</div>
+        <div class="subtitle">💖 a celebrar mi cumpleaños<br>sábado 26 de julio</div>
+        
+        <div class="photo-container">
+            <img src="img/img.jpg" alt="Foto" class="photo-image">
+            <div class="sparkle">✨</div>
+            <div class="sparkle">⭐</div>
+            <div class="sparkle">✨</div>
+            <div class="sparkle">⭐</div>
+            <div class="sparkle">💫</div>
+        </div>
+        
+        <div class="details">
+            <div class="time">14:00 (2 de la tarde)</div>
+            <div class="message">💕 No faltes... Te esperamos</div>
+            <div class="address-section">
+                <div class="address-title">📍 Dirección:</div>
+                <div class="address">
+                    Barrio Los Girasoles<br>
+                    Calles Pío 12 y Daniel Montoya
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
